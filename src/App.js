@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import './App.sass';
+import {Container, Row, Spinner} from 'react-bootstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+//UI Components
+import {Header} from './components/Header/Header';
+import {Filters} from './components/Filters/Filters';
+import {LoginForm} from './components/LoginForm/LoginForm';
+import {Loader} from './components/Loader/Loader';
+
+//LocaLStorage
+import {getToken, setToken, removeToken} from './utils/localStorage';
+
+const App = () => {
+	const [isLoginIn, setIsLoginIn] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
+	const onFormSubmit = () => {
+		setIsLoading(true);
+		setTimeout(() => {
+			setIsLoginIn(true);
+			setToken();
+			setIsLoading(false);
+		}, 1000);
+	};
+
+	useEffect(() => {
+		const token = getToken();
+		if (token) {
+			setIsLoginIn(true);
+		}
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
+	}, []);
+
+	const logOut = () => {
+		removeToken();
+		setIsLoginIn(false);
+	};
+
+	return (
+		<>
+			<Header isLoginIn={isLoginIn} onLogout={logOut} />
+			{isLoading ? (
+				<Loader isVisible={TextTrackCueList} />
+			) : isLoginIn ? (
+				<Filters />
+			) : (
+				<LoginForm onSubmit={onFormSubmit} />
+			)}
+		</>
+	);
+};
 
 export default App;
