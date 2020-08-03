@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Container, Table, Spinner} from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 //styles
 import './Filters.sass';
@@ -12,14 +13,32 @@ import {apiCall} from '../../utils/axios';
 //Fake Data
 import {fakeData} from '../../fakeData';
 
+const prepareDate = (date) => {
+	return moment(date).format('DD:MM:YYYY, HH:mm');
+};
+
 export const Filters = () => {
 	const [isLoading, setIsLoading] = useState(false);
+	const [startDate, setStartDate] = useState(prepareDate(Date.now()));
+	const [endDate, setEndDate] = useState(prepareDate(Date.now()));
+	const [clientName, setClientName] = useState('');
+	const [supplierName, setSupplierName] = useState('');
+	const [statistics, setStatistics] = useState([]);
 
 	const getStats = async () => {
+		setStatistics([]);
 		setIsLoading(true);
 		try {
-			const res = await apiCall.getAllStats();
-			console.log(res, 'res');
+			const data = {
+				client: '',
+				supplier: '',
+				period: {
+					startDate,
+					endDate,
+				},
+			};
+			const res = await apiCall.getAllStats(JSON.stringify(data));
+			setStatistics(res.response.body.clientStatistics || []);
 		} catch (err) {
 			console.log(err);
 		} finally {
@@ -29,9 +48,16 @@ export const Filters = () => {
 
 	return (
 		<Container>
-			<Calendars />
+			<Calendars
+				onStartDateSelect={(date) => {
+					setStartDate(prepareDate(date));
+				}}
+				onEndDateSelect={(date) => {
+					setEndDate(prepareDate(date));
+				}}
+			/>
 			<LoadBtn isLoading={isLoading} onClick={getStats} />
-			<Tables data={fakeData} />
+			<Tables data={statistics} />
 		</Container>
 	);
 };
@@ -69,10 +95,12 @@ const LoadBtn = ({isLoading = false, onClick = () => {}}) => {
 };
 
 const Tables = ({data}) => {
-	return data.map((item) => <TableItem table={item} />);
+	return data.map((item, idx) => (
+		<TableItem table={item} key={`${item.name}${Math.random() * idx}`} />
+	));
 };
 
-const TableItem = ({table = {}}) => {
+const TableItem = ({table = {}, idx}) => {
 	return (
 		<>
 			<div className={'Table__title'}>
@@ -98,7 +126,7 @@ const TableItem = ({table = {}}) => {
 				</thead>
 				<tbody>
 					{table.destinations.map((item) => (
-						<TableRow item={item} />
+						<TableRow item={item} key={`${Math.random() * 100}`} />
 					))}
 				</tbody>
 			</Table>
@@ -127,7 +155,7 @@ const TableRow = ({item}) => {
 			<td>{usage}</td>
 			<td>{item.asr}</td>
 			<td>{item.acd}</td>
-			<td>{item.callack}</td>
+			<td>{item.callBack}</td>
 			<td className={'Table__rate'}>
 				<input type="number" value={rate} onChange={handleRateChange} />
 			</td>
@@ -135,16 +163,30 @@ const TableRow = ({item}) => {
 	);
 };
 
-const Calendars = ({}) => {
+const Calendars = ({
+	onStartDateSelect = () => {},
+	onEndDateSelect = () => {},
+}) => {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
+
+	const handleDateSelection = (type = 'end', date) => {
+		if (type === 'end') {
+			setEndDate(date);
+			onEndDateSelect(date);
+		} else {
+			setStartDate(date);
+			onStartDateSelect(date);
+		}
+	};
+
 	return (
 		<div className={'calendars__wrap'}>
 			<div className="calendar">
 				<span className={'calendar__title'}>From:</span>
 				<DatePicker
 					selected={startDate}
-					onChange={(date) => setStartDate(date)}
+					onChange={(date) => handleDateSelection('start', date)}
 					selectsStart
 					startDate={startDate}
 					endDate={endDate}
@@ -154,7 +196,7 @@ const Calendars = ({}) => {
 				<span className={'calendar__title'}>To:</span>
 				<DatePicker
 					selected={endDate}
-					onChange={(date) => setEndDate(date)}
+					onChange={(date) => handleDateSelection('end', date)}
 					selectsEnd
 					startDate={startDate}
 					endDate={endDate}

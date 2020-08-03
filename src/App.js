@@ -25,13 +25,18 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		const token = getToken();
-		if (token) {
-			setIsLoginIn(true);
-		}
-		setTimeout(() => {
+		try {
+			const token = getToken();
+			if (token) {
+				setIsLoginIn(true);
+			} else {
+				setIsLoginIn(false);
+			}
+		} catch (err) {
+			console.log(err);
+		} finally {
 			setIsLoading(false);
-		}, 1000);
+		}
 	}, []);
 
 	const logOut = () => {

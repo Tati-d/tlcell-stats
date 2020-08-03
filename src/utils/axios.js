@@ -10,10 +10,12 @@ const instance = axios.create({
 	},
 });
 
-const getAllStats = () => {
+const getAllStats = (data) => {
+	console.log(data, 'data');
 	return instance({
 		url: 'statistic',
 		method: 'GET',
+		data,
 	});
 };
 

@@ -23,8 +23,8 @@ export const LoginForm = ({onSubmit = () => {}}) => {
 
 	const validateForm = () => {
 		return (
-			userName.toLowerCase() === credentials.user &&
-			password.toLowerCase() === credentials.password
+			userName.toLowerCase() === credentials.user.toLowerCase() &&
+			password.toLowerCase() === credentials.password.toLowerCase()
 		);
 	};
 
