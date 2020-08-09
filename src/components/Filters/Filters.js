@@ -20,7 +20,9 @@ const prepareDate = (date, type = '') => {
 
 export const Filters = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [startDate, setStartDate] = useState(prepareDate(Date.now()));
+	const [startDate, setStartDate] = useState(
+		prepareDate(Date.now(), 'start')
+	);
 	const [endDate, setEndDate] = useState(prepareDate(Date.now()));
 	const [clientName, setClientName] = useState('');
 	const [supplierName, setSupplierName] = useState('');
