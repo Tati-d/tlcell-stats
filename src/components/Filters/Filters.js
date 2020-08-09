@@ -138,15 +138,16 @@ const TableItem = ({table = {}, idx}) => {
 };
 
 const TableRow = ({item}) => {
-	const [rate, setRate] = useState(1);
+	const [rate, setRate] = useState(0.01);
 	const [usage, setUsage] = useState(1);
 
 	const handleRateChange = (newVal) => {
-		setRate(newVal.target.value);
+		// const val = +newVal.target.value;
+		setRate(+newVal.target.value);
 	};
 
 	useEffect(() => {
-		const res = rate * +item.durationInMinutes;
+		const res = +rate * +item.durationInMinutes;
 		setUsage(res.toFixed(3));
 	}, [rate]);
 
