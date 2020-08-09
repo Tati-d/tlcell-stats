@@ -13,8 +13,9 @@ import {apiCall} from '../../utils/axios';
 //Fake Data
 import {fakeData} from '../../fakeData';
 
-const prepareDate = (date) => {
-	return moment(date).format('DD:MM:YYYY, HH:mm');
+const prepareDate = (date, type = '') => {
+	const minutes = type === 'start' ? '00:00:00' : '23:59:59';
+	return moment(date).format(`YYYY-MM-DD ${minutes}`);
 };
 
 export const Filters = () => {
@@ -50,7 +51,7 @@ export const Filters = () => {
 		<Container>
 			<Calendars
 				onStartDateSelect={(date) => {
-					setStartDate(prepareDate(date));
+					setStartDate(prepareDate(date, 'start'));
 				}}
 				onEndDateSelect={(date) => {
 					setEndDate(prepareDate(date));

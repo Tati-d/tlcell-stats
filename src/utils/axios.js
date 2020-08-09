@@ -13,8 +13,8 @@ const instance = axios.create({
 const getAllStats = (data) => {
 	console.log(data, 'data');
 	return instance({
-		url: 'statistic',
-		method: 'GET',
+		url: 'statistic/new',
+		method: 'POST',
 		data,
 	});
 };
