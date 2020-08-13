@@ -25,12 +25,19 @@
 
 .calendars__wrap 
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    padding-top: 10px;
    justify-content: center;
 
 .calendar 
     margin: 5px 5px
+    width: 100%
+
+    .react-datepicker-wrapper
+        width: 100%
+    .react-datepicker__input-container
+        input 
+            width: 100%
 
 .calendar__title 
     margin-right: 5px

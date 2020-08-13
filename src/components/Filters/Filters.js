@@ -13,15 +13,14 @@ import {apiCall} from '../../utils/axios';
 //Fake Data
 import {fakeData} from '../../fakeData';
 
-const prepareDate = (date, type = '') => {
-	const minutes = type === 'start' ? '00:00:00' : '23:59:59';
-	return moment(date).format(`YYYY-MM-DD ${minutes}`);
+const prepareDate = (date) => {
+	return moment(date).format(`YYYY-MM-DD HH:mm:ss`);
 };
 
 export const Filters = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [startDate, setStartDate] = useState(
-		prepareDate(Date.now(), 'start')
+		prepareDate(new Date().setHours(0, 0, 0, 0), 'start')
 	);
 	const [endDate, setEndDate] = useState(prepareDate(Date.now()));
 	const [clientName, setClientName] = useState('');
@@ -53,7 +52,7 @@ export const Filters = () => {
 		<Container>
 			<Calendars
 				onStartDateSelect={(date) => {
-					setStartDate(prepareDate(date, 'start'));
+					setStartDate(prepareDate(date));
 				}}
 				onEndDateSelect={(date) => {
 					setEndDate(prepareDate(date));
@@ -171,7 +170,7 @@ const Calendars = ({
 	onStartDateSelect = () => {},
 	onEndDateSelect = () => {},
 }) => {
-	const [startDate, setStartDate] = useState(new Date());
+	const [startDate, setStartDate] = useState(new Date().setHours(0, 0, 0, 0));
 	const [endDate, setEndDate] = useState(new Date());
 
 	const handleDateSelection = (type = 'end', date) => {
@@ -194,6 +193,9 @@ const Calendars = ({
 					selectsStart
 					startDate={startDate}
 					endDate={endDate}
+					showTimeSelect
+					timeFormat="HH:mm"
+					dateFormat="MMMM d, yyyy HH:mm"
 				/>
 			</div>
 			<div className="calendar">
@@ -205,6 +207,9 @@ const Calendars = ({
 					startDate={startDate}
 					endDate={endDate}
 					minDate={startDate}
+					showTimeSelect
+					timeFormat="HH:mm"
+					dateFormat="MMMM d, yyyy HH:mm"
 				/>
 			</div>
 		</div>
