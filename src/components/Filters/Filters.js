@@ -113,17 +113,18 @@ const TableItem = ({table = {}, idx}) => {
 					total: <b>{table?.totalDuration}</b>
 				</span>
 			</div>
-			<Table striped bordered hover size="sm">
+			<Table striped bordered hover size="sm" responsive>
 				<thead>
 					<tr>
 						<th>Code</th>
 						<th>Calls</th>
 						<th>Min</th>
 						<th>Usage</th>
-						<th>asd</th>
+						<th>asr</th>
 						<th>acd</th>
-						<th>callback</th>
+						<th>cb</th>
 						<th>rate</th>
+						<th>{'  %  '}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -138,11 +139,17 @@ const TableItem = ({table = {}, idx}) => {
 
 const TableRow = ({item}) => {
 	const [rate, setRate] = useState(0.01);
+	const [percent, setPercent] = useState(Number(1).toFixed(3));
 	const [usage, setUsage] = useState(1);
+	const [minutes, setMinutes] = useState(item.durationInMinutes);
 
 	const handleRateChange = (newVal) => {
 		// const val = +newVal.target.value;
 		setRate(+newVal.target.value);
+	};
+
+	const handlePercentChange = (newVal) => {
+		setPercent(+newVal.target.value);
 	};
 
 	useEffect(() => {
@@ -150,17 +157,39 @@ const TableRow = ({item}) => {
 		setUsage(res.toFixed(3));
 	}, [rate]);
 
+	useEffect(() => {
+		const res = +rate * +item.durationInMinutes * +percent;
+		const mins = +item.durationInMinutes * +percent;
+		setMinutes(mins.toFixed(2));
+		setUsage(res.toFixed(3));
+	}, [percent]);
+
 	return (
 		<tr>
 			<td>{item.destinationCode}</td>
 			<td>{item.calls}</td>
-			<td>{item.durationInMinutes}</td>
+			<td>{minutes}</td>
 			<td>{usage}</td>
 			<td>{item.asr}</td>
 			<td>{item.acd}</td>
 			<td>{item.callBack}</td>
 			<td className={'Table__rate'}>
-				<input type="number" value={rate} onChange={handleRateChange} />
+				<input
+					type="number"
+					value={rate}
+					onChange={handleRateChange}
+					step="0.01"
+					min="0"
+				/>
+			</td>
+			<td className={'Table__rate'}>
+				<input
+					type="number"
+					value={percent}
+					step="0.001"
+					min="0"
+					onChange={handlePercentChange}
+				/>
 			</td>
 		</tr>
 	);
