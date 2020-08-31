@@ -153,7 +153,7 @@ const TableRow = ({item}) => {
 	};
 
 	useEffect(() => {
-		const res = +rate * +item.durationInMinutes;
+		const res = +rate * +item.durationInMinutes * percent;
 		setUsage(res.toFixed(3));
 	}, [rate]);
 
