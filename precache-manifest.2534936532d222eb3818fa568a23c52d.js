@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a3074bf00d1b27cb36ea7bb70f25a384",
+    "revision": "b136763d1f751acdf25f9259aa490c2d",
     "url": "/tlcell-stats/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tlcell-stats/static/css/2.25ff2e5b.chunk.css"
   },
   {
-    "revision": "927d0acc0d98f3a2e7cf",
+    "revision": "47d003f8f6f1a423df59",
     "url": "/tlcell-stats/static/css/main.67e38132.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tlcell-stats/static/js/2.4b5c6a57.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "927d0acc0d98f3a2e7cf",
-    "url": "/tlcell-stats/static/js/main.8303b32a.chunk.js"
+    "revision": "47d003f8f6f1a423df59",
+    "url": "/tlcell-stats/static/js/main.65fd9df8.chunk.js"
   },
   {
     "revision": "cbbba92d971782c400c1",

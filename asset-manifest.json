@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tlcell-stats/static/css/main.67e38132.chunk.css",
-    "main.js": "/tlcell-stats/static/js/main.8303b32a.chunk.js",
-    "main.js.map": "/tlcell-stats/static/js/main.8303b32a.chunk.js.map",
+    "main.js": "/tlcell-stats/static/js/main.65fd9df8.chunk.js",
+    "main.js.map": "/tlcell-stats/static/js/main.65fd9df8.chunk.js.map",
     "runtime-main.js": "/tlcell-stats/static/js/runtime-main.38e3cb49.js",
     "runtime-main.js.map": "/tlcell-stats/static/js/runtime-main.38e3cb49.js.map",
     "static/css/2.25ff2e5b.chunk.css": "/tlcell-stats/static/css/2.25ff2e5b.chunk.css",
     "static/js/2.4b5c6a57.chunk.js": "/tlcell-stats/static/js/2.4b5c6a57.chunk.js",
     "static/js/2.4b5c6a57.chunk.js.map": "/tlcell-stats/static/js/2.4b5c6a57.chunk.js.map",
     "index.html": "/tlcell-stats/index.html",
-    "precache-manifest.88867e4d87bc4610edd6d3c94ba0bafb.js": "/tlcell-stats/precache-manifest.88867e4d87bc4610edd6d3c94ba0bafb.js",
+    "precache-manifest.2534936532d222eb3818fa568a23c52d.js": "/tlcell-stats/precache-manifest.2534936532d222eb3818fa568a23c52d.js",
     "service-worker.js": "/tlcell-stats/service-worker.js",
     "static/css/2.25ff2e5b.chunk.css.map": "/tlcell-stats/static/css/2.25ff2e5b.chunk.css.map",
     "static/css/main.67e38132.chunk.css.map": "/tlcell-stats/static/css/main.67e38132.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.25ff2e5b.chunk.css",
     "static/js/2.4b5c6a57.chunk.js",
     "static/css/main.67e38132.chunk.css",
-    "static/js/main.8303b32a.chunk.js"
+    "static/js/main.65fd9df8.chunk.js"
   ]
 }
